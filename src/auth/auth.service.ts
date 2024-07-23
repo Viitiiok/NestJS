@@ -18,21 +18,21 @@ export class AuthService  {
           email: dto.email,
           hash,
         },
-    });
+      });
 
-    delete user.hash;
-    return user;
-    } catch(error) {
-      if (error instanceof PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new ForbiddenException(
-            'Credentials taken'
-          )
+      delete user.hash;
+      return user;
+      } catch(error) {
+        if (error instanceof PrismaClientKnownRequestError) {
+          if (error.code === 'P2002') {
+            throw new ForbiddenException(
+              'Credentials taken'
+            )
+          }
         }
+        throw error;
       }
-      throw error;
     }
-  }
 
 
   async signin(dto: AuthDto) {
